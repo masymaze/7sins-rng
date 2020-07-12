@@ -22,7 +22,7 @@
 
         public $dataBase;
 
-        public $counts;
+        public $count;
     
         function __construct($db){
             $this->dataBase = $db;
