@@ -1,0 +1,7 @@
+Array
+(
+    [Common] => 417
+    [Uncommon] => 272
+    [Rare] => 214
+    [Super Rare] => 97
+)
