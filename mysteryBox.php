@@ -218,10 +218,11 @@
         public $count;
 
         public $PDO;
-    
+
         function __construct($db,$code=null){
-            $this->$PDO = new PDO('sqlite:'.$db);
-            
+	    $dbPath = "7sins.db";
+            $PDO = new PDO('sqlite:'.$dbPath);
+            $this->PDO = $PDO;
             $this->dataBase = $db;
             $this->count = array();
 
