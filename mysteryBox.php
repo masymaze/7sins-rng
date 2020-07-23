@@ -365,7 +365,39 @@
             }
         }
 
+	function getNameByID($id){
+		return $this->runQuery("SELECT name from codes where id = :id",["id"=>$id]);
+	}
+
     }
 
-    include('tmpl/page.php');
-    
+//	if(!@$_GET['report']==1){
+
+	    include('tmpl/page.php');
+
+/*	}
+
+	else {
+		$query = "SELECT * FROM boxes";
+		$mb = new mysteryBox();
+		$table = $mb->runQuery($query);
+
+		$mb->getWeight();
+		$rarity = $mb->translationMatrix;
+		echo "<link rel='stylesheet' href='style.css' />";
+		echo "<table><th>Name</th><th>Prize</th><th>Rarity</th><th>Re-roll</th>";
+		foreach($table as $prize){
+			echo "<tr><td>";
+			echo ($mb->getNameByID($prize['codeID']))[0]['name'];
+			echo "</td><td>";
+			echo ($mb->getPrizeByID($prize['prizeID']))[0];
+			echo "</td><td>";
+			echo $rarity[(($mb->getPrizeByID($prize['prizeID']))[1]-1)];
+			echo "</td><td>";
+			echo $prize['rerolled']==1?"Yes":"No";
+			echo "</td></tr>";
+		}
+		echo "</table>";
+
+/* codeID , prizeID , rerolled */
+//	} */

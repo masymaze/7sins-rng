@@ -3,42 +3,16 @@
     $mysteryBox = new mysteryBox();
 ?>
 
-<style>
-    .alt-table{
-        background: beige;
-    }
-	th { text-align : left; }
-	table { width: 100% }
-	body { font-family: sans-serif; padding: 0;margin:0 }
-   .topBanner {
-	background: darkRed;
-	width : 100%;
-	margin: 0;
-	padding : 5px;
-	padding-left: 15px;
-	color : white;
-	margin-bottom : 20px;
-}
-	.floatRight { float : right ; margin-right : 20px; }
-	.topBanner a,.topBanner a:visited{
-		color: white;
-	}
-	.topBanner a:hover,.topBanner a:active{
-		color:yellow;
-	}
-	fieldset{
-		width: 275px;
-		margin: auto;
-	}
-</style>
+<title>7Sins Triathlon</title>
 
+<link rel='stylesheet' href='style.css' />
 
 <div class='topBanner'>
-	<?php
-		if(@$_GET['code']){
-			echo "<div class='floatRight'><small><a href='/mysteryBox.php'>Go back?</a></small></div>";
-		}
-	?>
+	<div class="floatRight">
+		<small><?php if(@$_GET['code']||@$_GET['report']){ echo "<a href='/mysteryBox.php'>Go back?</a> | "; } ?>
+			<a href='/?report=1'>View Claimed Prizes</a>
+		</small>
+	</div>
 	<h1>7Sins Triathlon Prizes</h1>
 </div>
 
@@ -56,6 +30,38 @@
 
 
 <div style=' width:90%;margin:auto;'>
+
+
+<?php
+if(@$_GET['report']==1){
+
+                $query = "SELECT * FROM boxes";
+                $mb = new mysteryBox();
+                $table = $mb->runQuery($query);
+
+                $mb->getWeight();
+                $rarity = $mb->translationMatrix;
+                echo "<table><th>Timestamp</th><th>Name</th><th>Prize</th><th>Rarity</th><th>Re-rolled?</th>";
+                foreach($table as $prize){
+                        echo "<tr><td>";
+			echo $prize['timestamp'];
+			echo "</td><td>";
+                        echo ($mb->getNameByID($prize['codeID']))[0]['name'];
+                        echo "</td><td>";
+                        echo ($mb->getPrizeByID($prize['prizeID']))[0];
+                        echo "</td><td>";
+                        echo $rarity[(($mb->getPrizeByID($prize['prizeID']))[1]-1)];
+                        echo "</td><td>";
+                        echo $prize['rerolled']==1?"Yes":"No";
+                        echo "</td></tr>";
+                }
+                echo "</table>";
+		echo "<hr /><small>Times are in GMT+0 - AKA Server Time :D</small>";
+
+	die(); // LAZY I KNOW
+}
+?>
+
 <table>
     <tr>
         <td> <!--- Prize Info --->
